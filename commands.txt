@@ -1,0 +1,20 @@
+Stage 1 - Preparing Django
+py -m venv venv
+pip install django
+django-admin startproject core .
+py manage.py runserver
+pip freeze > requirements.txt
+
+Stage 2 - Django Configurable by Environment Variables
+https://en.wikipedia.org/wiki/Twelve-Factor_App_methodology
+
+method 1
+SECRET_KEY = os.getenv('SECRET_KEY')
+DEBUG = os.getenv('DEBUG', True)
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1').split(',')
+
+method 2
+https://dev.to/joshwizzy/how-to-keep-secrets-out-of-django-settings-41c4
+pip install django-environ
+make .gitignore
+add *.env
