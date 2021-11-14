@@ -1,5 +1,4 @@
-
-import environ
+import django_heroku
 import os
 from pathlib import Path
 
@@ -11,10 +10,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fbujbr4ff^4je+m6bn@h(zs*w=doz)eiy6n#q4q%sb9v(-r(5^'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', 'localhost']
 
@@ -33,6 +32,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -73,11 +73,11 @@ if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ['NAME'],
-            'USER': os.environ['USER'],
-            'PASSWORD': os.environ['PASSWORD'],
-            'HOST': os.environ['HOST'],
-            'PORT': os.environ['PORT'],
+            'NAME': os.environ.get['NAME'],
+            'USER': os.environ.get['USER'],
+            'PASSWORD': os.environ.get['PASSWORD'],
+            'HOST': os.environ.get['HOST'],
+            'PORT': os.environ.get['PORT'],
         }
     }
     
@@ -130,9 +130,10 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static/"
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media/"
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"]}
+django_heroku.settings(locals())
