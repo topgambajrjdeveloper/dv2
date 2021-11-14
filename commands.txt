@@ -1,9 +1,11 @@
 Stage 1 - Preparing Django
 py -m venv venv
-pip install django
-django-admin startproject core .
+mac o linux: source venv/bin/activate o . venv/bin/activate
+win: .\venv\Scripts\activate
+windows: pip install -r requirements.txt
+linux o MAC, debes hacerlo asi: pip3 install -r requirements.txt
 py manage.py runserver
-pip freeze > requirements.txt
+
 
 Stage 2 - Django Configurable by Environment Variables
 https://en.wikipedia.org/wiki/Twelve-Factor_App_methodology
