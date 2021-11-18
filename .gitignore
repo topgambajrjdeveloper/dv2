@@ -9,3 +9,7 @@ git push -u origin main
 git remote add origin https://github.com/topgambajrjdeveloper/dev-cordenadas2.0.git
 git branch -M main
 git push -u origin main
+
+git remote add origin https://github.com/topgambajrjdeveloper/git.git
+git branch -M main
+git push -u origin main
